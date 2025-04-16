@@ -11,11 +11,10 @@ import static utilz.Constants.Game.GAME_WIDTH;
 
 public class GamePanel extends JPanel {
 
-    private MouseInputs mouseInputs;
-    private Game game;
+    private final Game game;
 
     public GamePanel(Game game) {
-        mouseInputs = new MouseInputs(this);
+        MouseInputs mouseInputs = new MouseInputs(this);
         this.game = game;
         setPanelSize();
         addKeyListener(new KeyboardInputs(this));

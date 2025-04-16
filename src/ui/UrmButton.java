@@ -8,7 +8,8 @@ import static utilz.Constants.UI.URMButtons.*;
 
 public class UrmButton extends PauseButton {
 	private BufferedImage[] imgs;
-	private int rowIndex, index;
+	private final int rowIndex;
+    private int index;
 	private boolean mouseOver, mousePressed;
 
 	public UrmButton(int x, int y, int width, int height, int rowIndex) {
@@ -20,8 +21,10 @@ public class UrmButton extends PauseButton {
 	private void loadImgs() {
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.URM_BUTTONS);
 		imgs = new BufferedImage[3];
-		for (int i = 0; i < imgs.length; i++)
-			imgs[i] = temp.getSubimage(i * URM_DEFAULT_SIZE, rowIndex * URM_DEFAULT_SIZE, URM_DEFAULT_SIZE, URM_DEFAULT_SIZE);
+		for (int i = 0; i < imgs.length; i++) {
+            assert temp != null;
+            imgs[i] = temp.getSubimage(i * URM_DEFAULT_SIZE, rowIndex * URM_DEFAULT_SIZE, URM_DEFAULT_SIZE, URM_DEFAULT_SIZE);
+        }
 
 	}
 

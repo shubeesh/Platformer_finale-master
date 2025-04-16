@@ -14,10 +14,10 @@ import static utilz.Constants.UI.VolumeButtons.*;
 
 public class PauseOverlay {
 
-	private Playing playing;
+	private final Playing playing;
 	private BufferedImage backgroundImg;
 	private int bgX, bgY, bgW, bgH;
-	private AudioOptions audioOptions;
+	private final AudioOptions audioOptions;
 	private UrmButton menuB, replayB, unpauseB;
 
 	public PauseOverlay(Playing playing) {
@@ -42,7 +42,8 @@ public class PauseOverlay {
 
 	private void loadBackground() {
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PAUSE_BACKGROUND);
-		bgW = (int) (backgroundImg.getWidth() * Game.SCALE);
+        assert backgroundImg != null;
+        bgW = (int) (backgroundImg.getWidth() * Game.SCALE);
 		bgH = (int) (backgroundImg.getHeight() * Game.SCALE);
 		bgX = Game.GAME_WIDTH / 2 - bgW / 2;
 		bgY = (int) (25 * Game.SCALE);

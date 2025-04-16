@@ -18,16 +18,14 @@ import static utilz.HelpMethods.*;
 
 public class Level {
 
-	private BufferedImage img;
+	private final BufferedImage img;
 	private int[][] lvlData;
 	private ArrayList<Crabby> crabs;
 	private ArrayList<Potion> potions;
 	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainer> containers;
 	private ArrayList<Cannon> cannons;
-	private int lvlTilesWide;
-	private int maxTilesOffset;
-	private int maxLvlOffsetX;
+    private int maxLvlOffsetX;
 	private Point playerSpawn;
 
 	public Level(BufferedImage img) {
@@ -63,8 +61,8 @@ public class Level {
 	}
 
 	private void calcLvlOffsets() {
-		lvlTilesWide = img.getWidth();
-		maxTilesOffset = lvlTilesWide - TILES_IN_WIDTH;
+        int lvlTilesWide = img.getWidth();
+        int maxTilesOffset = lvlTilesWide - TILES_IN_WIDTH;
 		maxLvlOffsetX = TILES_SIZE * maxTilesOffset;
 	}
 

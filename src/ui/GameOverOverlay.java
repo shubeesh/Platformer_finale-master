@@ -15,7 +15,7 @@ import utilz.LoadSave;
 
 public class GameOverOverlay {
 
-	private Playing playing;
+	private final Playing playing;
 	private BufferedImage img;
 	private int imgX, imgY, imgW, imgH;
 	private UrmButton menu, play;
@@ -37,7 +37,8 @@ public class GameOverOverlay {
 
 	private void createImg() {
 		img = LoadSave.GetSpriteAtlas(LoadSave.DEATH_SCREEN);
-		imgW = (int) (img.getWidth() * Game.SCALE);
+        assert img != null;
+        imgW = (int) (img.getWidth() * Game.SCALE);
 		imgH = (int) (img.getHeight() * Game.SCALE);
 		imgX = Game.GAME_WIDTH / 2 - imgW / 2;
 		imgY = (int) (100 * Game.SCALE);

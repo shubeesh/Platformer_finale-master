@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class LevelManager {
 
-	private Game game;
+	private final Game game;
 	private BufferedImage[] levelSprite;
-	private ArrayList<Level> levels;
+	private final ArrayList<Level> levels;
 	private int lvlIndex = 0;
 
 	public LevelManager(Game game) {
@@ -40,7 +40,8 @@ public class LevelManager {
 
 	private void buildAllLevels() {
 		BufferedImage[] allLevels = LoadSave.GetAllLevels();
-		for (BufferedImage img : allLevels)
+        assert allLevels != null;
+        for (BufferedImage img : allLevels)
 			levels.add(new Level(img));
 	}
 
@@ -50,7 +51,8 @@ public class LevelManager {
 		for (int j = 0; j < 4; j++)
 			for (int i = 0; i < 12; i++) {
 				int index = j * 12 + i;
-				levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
+                assert img != null;
+                levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
 			}
 	}
 

@@ -13,7 +13,7 @@ import static utilz.Constants.UI.URMButtons.*;
 
 public class LevelCompletedOverlay {
 
-	private Playing playing;
+	private final Playing playing;
 	private UrmButton menu, next;
 	private BufferedImage img;
 	private int bgX, bgY, bgW, bgH;
@@ -34,7 +34,8 @@ public class LevelCompletedOverlay {
 
 	private void initImg() {
 		img = LoadSave.GetSpriteAtlas(LoadSave.COMPLETED_IMG);
-		bgW = (int) (img.getWidth() * Game.SCALE);
+        assert img != null;
+        bgW = (int) (img.getWidth() * Game.SCALE);
 		bgH = (int) (img.getHeight() * Game.SCALE);
 		bgX = Game.GAME_WIDTH / 2 - bgW / 2;
 		bgY = (int) (75 * Game.SCALE);

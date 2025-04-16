@@ -9,9 +9,12 @@ import utilz.LoadSave;
 import static utilz.Constants.UI.Buttons.*;
 
 public class MenuButton {
-	private int xPos, yPos, rowIndex, index;
-	private int xOffsetCenter = B_WIDTH / 2;
-	private Gamestate state;
+	private final int xPos;
+    private final int yPos;
+    private final int rowIndex;
+    private int index;
+	private final int xOffsetCenter = B_WIDTH / 2;
+	private final Gamestate state;
 	private BufferedImage[] imgs;
 	private boolean mouseOver, mousePressed;
 	private Rectangle bounds;
@@ -33,8 +36,10 @@ public class MenuButton {
 	private void loadImgs() {
 		imgs = new BufferedImage[3];
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.MENU_BUTTONS);
-		for (int i = 0; i < imgs.length; i++)
-			imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+		for (int i = 0; i < imgs.length; i++) {
+            assert temp != null;
+            imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+        }
 	}
 
 	public void draw(Graphics g) {
