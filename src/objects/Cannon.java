@@ -1,10 +1,11 @@
 package objects;
 
+import main.Game;
 import utilz.Constants;
 
 public class Cannon extends GameObject {
 
-    private final int tileY;
+    private int tileY;
 
     public Cannon(int x, int y, int objType) {
         super(x, y, objType);

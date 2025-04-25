@@ -1,20 +1,15 @@
 package utilz;
 
-import static utilz.Constants.EnemyConstants.CRABBY;
-import static utilz.Constants.ObjectConstants.*;
+import entities.Crabby;
+import objects.*;
 
-import java.awt.Color;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import entities.Crabby;
-import objects.Cannon;
-import objects.GameContainer;
-import objects.Potion;
-import objects.Projectile;
-import objects.Spike;
+import static utilz.Constants.EnemyConstants.CRABBY;
+import static utilz.Constants.ObjectConstants.*;
 
 public class HelpMethods {
 
@@ -22,7 +17,8 @@ public class HelpMethods {
         if (!IsSolid(x, y, lvlData))
             if (!IsSolid(x + width, y + height, lvlData))
                 if (!IsSolid(x + width, y, lvlData))
-                    return !IsSolid(x, y + height, lvlData);
+                    if (!IsSolid(x, y + height, lvlData))
+                        return true;
         return false;
     }
 
@@ -46,12 +42,15 @@ public class HelpMethods {
     public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
         int value = lvlData[yTile][xTile];
 
-        return value != 11;
+        if (value >= 48 || value < 0 || value != 11)
+            return true;
+        return false;
     }
 
     public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed) {
         int currentTile = (int) (hitbox.x / Constants.Game.TILES_SIZE);
         if (xSpeed > 0) {
+            // Right
             int tileXPos = currentTile * Constants.Game.TILES_SIZE;
             int xOffset = (int) (Constants.Game.TILES_SIZE - hitbox.width);
             return tileXPos + xOffset - 1;
@@ -68,14 +67,16 @@ public class HelpMethods {
             int yOffset = (int) (Constants.Game.TILES_SIZE - hitbox.height);
             return tileYPos + yOffset - 1;
         } else
+            // Jumping
             return currentTile * Constants.Game.TILES_SIZE;
 
     }
 
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
         if (!IsSolid(hitbox.x, hitbox.y + hitbox.height + 1, lvlData))
-            return !IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData);
-        return false;
+            if (!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData))
+                return false;
+        return true;
     }
 
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
@@ -154,7 +155,7 @@ public class HelpMethods {
                 if (value == 100)
                     return new Point(i * Constants.Game.TILES_SIZE, j * Constants.Game.TILES_SIZE);
             }
-        return new Point(Constants.Game.TILES_SIZE, Constants.Game.TILES_SIZE);
+        return new Point(1 * Constants.Game.TILES_SIZE, 1 * Constants.Game.TILES_SIZE);
     }
 
     public static ArrayList<Potion> GetPotions(BufferedImage img) {

@@ -1,7 +1,5 @@
 package utilz;
 
-import main.Game;
-
 public class Constants {
 
 	public static final float GRAVITY = 0.04f * Game.SCALE;
@@ -60,13 +58,16 @@ public class Constants {
 		public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * Game.SCALE);
 
 		public static int GetSpriteAmount(int object_type) {
-            return switch (object_type) {
-                case RED_POTION, BLUE_POTION -> 7;
-                case BARREL, BOX -> 8;
-                case CANNON_LEFT, CANNON_RIGHT -> 7;
-                default -> 1;
-            };
-        }
+			switch (object_type) {
+				case RED_POTION, BLUE_POTION:
+					return 7;
+				case BARREL, BOX:
+					return 8;
+				case CANNON_LEFT, CANNON_RIGHT:
+					return 7;
+			}
+			return 1;
+		}
 	}
 
 	public static class EnemyConstants {
@@ -89,39 +90,44 @@ public class Constants {
 
 		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
 
-            if (enemy_type == CRABBY) {
-                switch (enemy_state) {
-                    case IDLE:
-                        return 9;
-                    case RUNNING:
-                        return 6;
-                    case ATTACK:
-                        return 7;
-                    case HIT:
-                        return 4;
-                    case DEAD:
-                        return 5;
-                }
-            }
+			switch (enemy_type) {
+				case CRABBY:
+					switch (enemy_state) {
+						case IDLE:
+							return 9;
+						case RUNNING:
+							return 6;
+						case ATTACK:
+							return 7;
+						case HIT:
+							return 4;
+						case DEAD:
+							return 5;
+					}
+			}
 
 			return 0;
 
 		}
 
 		public static int GetMaxHealth(int enemy_type) {
-            if (enemy_type == CRABBY) {
-                return 10;
-            }
-            return 1;
-        }
+			switch (enemy_type) {
+				case CRABBY:
+					return 10;
+				default:
+					return 1;
+			}
+		}
 
 		public static int GetEnemyDmg(int enemy_type) {
-            if (enemy_type == CRABBY) {
-                return 15;
-            }
-            return 0;
+			switch (enemy_type) {
+				case CRABBY:
+					return 15;
+				default:
+					return 0;
+			}
 
-        }
+		}
 
 	}
 
@@ -184,14 +190,22 @@ public class Constants {
 		public static final int DEAD = 6;
 
 		public static int GetSpriteAmount(int player_action) {
-            return switch (player_action) {
-                case DEAD -> 8;
-                case RUNNING -> 6;
-                case IDLE -> 5;
-                case HIT -> 4;
-                case JUMP, ATTACK -> 3;
-                default -> 1;
-            };
+			switch (player_action) {
+				case DEAD:
+					return 8;
+				case RUNNING:
+					return 6;
+				case IDLE:
+					return 5;
+				case HIT:
+					return 4;
+				case JUMP:
+				case ATTACK:
+					return 3;
+				case FALLING:
+				default:
+					return 1;
+			}
 		}
 	}
 
