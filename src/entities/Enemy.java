@@ -8,7 +8,6 @@ import java.awt.geom.Rectangle2D;
 import static utilz.Constants.Directions.*;
 import static utilz.Constants.*;
 
-import main.Game;
 import utilz.Constants;
 
 public abstract class Enemy extends Entity {
@@ -30,7 +29,7 @@ public abstract class Enemy extends Entity {
     }
 
     protected void firstUpdateCheck(int[][] lvlData) {
-        if (!IsEntityOnFloor(hitbox, lvlData))
+        if (IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
         firstUpdate = false;
     }

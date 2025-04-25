@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 
 import audio.AudioPlayer;
 import gamestates.Playing;
-import main.Game;
 import utilz.Constants;
 import utilz.LoadSave;
 
@@ -278,7 +277,7 @@ public class Player extends Entity {
         }
 
         if (!inAir)
-            if (!IsEntityOnFloor(hitbox, lvlData))
+            if (IsEntityOnFloor(hitbox, lvlData))
                 inAir = true;
 
         if (inAir && !powerAttackActive) {
@@ -362,7 +361,7 @@ public class Player extends Entity {
 
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
-        if (!IsEntityOnFloor(hitbox, lvlData))
+        if (IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
 
@@ -408,7 +407,7 @@ public class Player extends Entity {
         hitbox.y = y;
         resetAttackBox();
 
-        if (!IsEntityOnFloor(hitbox, lvlData))
+        if (IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
 

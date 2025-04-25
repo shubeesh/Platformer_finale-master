@@ -1,20 +1,22 @@
 package utilz;
 
+import main.Game;
+
 public class Constants {
 
 	public static final float GRAVITY = 0.04f * Game.SCALE;
 	public static final int ANI_SPEED = 25;
-	
+
 	public static class Projectiles{
 		public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
 		public static final int CANNON_BALL_DEFAULT_HEIGHT = 15;
-		
+
 		public static final int CANNON_BALL_WIDTH = (int)(Game.SCALE * CANNON_BALL_DEFAULT_WIDTH);
 		public static final int CANNON_BALL_HEIGHT = (int)(Game.SCALE * CANNON_BALL_DEFAULT_HEIGHT);
 		public static final float SPEED = 0.75f * Game.SCALE;
 	}
 
-	public static class Game{
+	public static class Game {
 		public final static int TILES_DEFAULT_SIZE = 32;
 		public final static float SCALE = 2f;
 		public final static int TILES_IN_WIDTH = 26;
@@ -58,16 +60,13 @@ public class Constants {
 		public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * Game.SCALE);
 
 		public static int GetSpriteAmount(int object_type) {
-			switch (object_type) {
-			case RED_POTION, BLUE_POTION:
-				return 7;
-			case BARREL, BOX:
-				return 8;
-			case CANNON_LEFT, CANNON_RIGHT:
-				return 7;
-			}
-			return 1;
-		}
+            return switch (object_type) {
+                case RED_POTION, BLUE_POTION -> 7;
+                case BARREL, BOX -> 8;
+                case CANNON_LEFT, CANNON_RIGHT -> 7;
+                default -> 1;
+            };
+        }
 	}
 
 	public static class EnemyConstants {
