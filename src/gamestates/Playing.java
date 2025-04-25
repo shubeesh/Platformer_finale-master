@@ -8,10 +8,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import main.Game;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
+import main.Game;
 import objects.ObjectManager;
 import ui.GameOverOverlay;
 import ui.LevelCompletedOverlay;
@@ -31,19 +31,17 @@ public class Playing extends State implements Statemethods {
     private boolean paused = false;
 
     private int xLvlOffset;
-    private int leftBorder = (int) (0.2 * Constants.Game.GAME_WIDTH);
-    private int rightBorder = (int) (0.8 * Constants.Game.GAME_WIDTH);
     private int maxLvlOffsetX;
 
-    private BufferedImage backgroundImg, bigCloud, smallCloud;
-    private int[] smallCloudsPos;
-    private Random rnd = new Random();
+    private final BufferedImage backgroundImg;
+    private final BufferedImage bigCloud;
+    private final BufferedImage smallCloud;
+    private final int[] smallCloudsPos;
 
     private boolean gameOver;
     private boolean lvlCompleted;
     private boolean playerDying;
 
-    // TODO: hey look free code.
     public Playing(Game game) {
         super(game);
         initClasses();
@@ -52,6 +50,7 @@ public class Playing extends State implements Statemethods {
         bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
         smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
         smallCloudsPos = new int[8];
+        Random rnd = new Random();
         for (int i = 0; i < smallCloudsPos.length; i++)
             smallCloudsPos[i] = (int) (90 * Constants.Game.SCALE) + rnd.nextInt((int) (100 * Constants.Game.SCALE));
 
@@ -80,7 +79,7 @@ public class Playing extends State implements Statemethods {
         enemyManager = new EnemyManager(this);
         objectManager = new ObjectManager(this);
 
-        player = new Player(200, 200, (int) (64 * Constants.Game.SCALE), (int) (40 * Game.SCALE), this);
+        player = new Player(200, 200, (int) (64 * Constants.Game.SCALE), (int) (40 * Constants.Game.SCALE), this);
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
 
@@ -112,6 +111,8 @@ public class Playing extends State implements Statemethods {
         int playerX = (int) player.getHitbox().x;
         int diff = playerX - xLvlOffset;
 
+        int leftBorder = (int) (0.2 * Constants.Game.GAME_WIDTH);
+        int rightBorder = (int) (0.8 * Constants.Game.GAME_WIDTH);
         if (diff > rightBorder)
             xLvlOffset += diff - rightBorder;
         else if (diff < leftBorder)
