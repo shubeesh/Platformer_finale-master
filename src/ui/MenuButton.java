@@ -1,20 +1,17 @@
 package ui;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-
 import gamestates.Gamestate;
 import utilz.LoadSave;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import static utilz.Constants.UI.Buttons.*;
 
 public class MenuButton {
-	private final int xPos;
-    private final int yPos;
-    private final int rowIndex;
-    private int index;
-	private final int xOffsetCenter = B_WIDTH / 2;
-	private final Gamestate state;
+	private int xPos, yPos, rowIndex, index;
+	private int xOffsetCenter = B_WIDTH / 2;
+	private Gamestate state;
 	private BufferedImage[] imgs;
 	private boolean mouseOver, mousePressed;
 	private Rectangle bounds;

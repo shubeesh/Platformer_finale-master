@@ -7,8 +7,8 @@ import java.awt.geom.Rectangle2D;
 import static utilz.Constants.Projectiles.*;
 
 public class Projectile {
-    private final Rectangle2D.Float hitbox;
-    private final int dir;
+    private Rectangle2D.Float hitbox;
+    private int dir;
     private boolean active = true;
 
     public Projectile(int x, int y, int dir) {

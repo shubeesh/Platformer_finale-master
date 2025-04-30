@@ -1,14 +1,15 @@
 package entities;
 
-import static utilz.Constants.EnemyConstants.*;
-import static utilz.HelpMethods.*;
+import utilz.Constants;
 
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.Directions.*;
-import static utilz.Constants.*;
-
-import utilz.Constants;
+import static utilz.Constants.ANI_SPEED;
+import static utilz.Constants.Directions.LEFT;
+import static utilz.Constants.Directions.RIGHT;
+import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.GRAVITY;
+import static utilz.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
     protected int enemyType;
@@ -29,7 +30,7 @@ public abstract class Enemy extends Entity {
     }
 
     protected void firstUpdateCheck(int[][] lvlData) {
-        if (IsEntityOnFloor(hitbox, lvlData))
+        if (!IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
         firstUpdate = false;
     }
@@ -73,7 +74,8 @@ public abstract class Enemy extends Entity {
         int playerTileY = (int) (player.getHitbox().y / Constants.Game.TILES_SIZE);
         if (playerTileY == tileY)
             if (isPlayerInRange(player)) {
-                return IsSightClear(lvlData, hitbox, player.hitbox, tileY);
+                if (IsSightClear(lvlData, hitbox, player.hitbox, tileY))
+                    return true;
             }
 
         return false;

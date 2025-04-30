@@ -1,13 +1,14 @@
 package inputs;
 
+import gamestates.Gamestate;
+import main.GamePanel;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import gamestates.Gamestate;
-
 public class KeyboardInputs implements KeyListener {
 
-	private final GamePanel gamePanel;
+	private GamePanel gamePanel;
 
 	public KeyboardInputs(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
@@ -15,6 +16,7 @@ public class KeyboardInputs implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 	@Override

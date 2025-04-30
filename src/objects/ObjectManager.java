@@ -1,25 +1,24 @@
 package objects;
 
-import entities.Player;
-import gamestates.Playing;
-import levels.Level;
-import utilz.Constants;
-import utilz.LoadSave;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import entities.Player;
+import gamestates.Playing;
+import levels.Level;
+import main.Game;
+import utilz.Constants;
+import utilz.LoadSave;
 import static utilz.Constants.ObjectConstants.*;
-import static utilz.Constants.Projectiles.CANNON_BALL_HEIGHT;
-import static utilz.Constants.Projectiles.CANNON_BALL_WIDTH;
 import static utilz.HelpMethods.CanCannonSeePlayer;
 import static utilz.HelpMethods.IsProjectileHittingLevel;
+import static utilz.Constants.Projectiles.*;
 
 public class ObjectManager {
 
-    private final Playing playing;
+    private Playing playing;
     private BufferedImage[][] potionImgs, containerImgs;
     private BufferedImage[] cannonImgs;
     private BufferedImage spikeImg, cannonBallImg;
@@ -27,7 +26,7 @@ public class ObjectManager {
     private ArrayList<GameContainer> containers;
     private ArrayList<Spike> spikes;
     private ArrayList<Cannon> cannons;
-    private final ArrayList<Projectile> projectiles = new ArrayList<>();
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
 
     public ObjectManager(Playing playing) {
         this.playing = playing;
@@ -138,9 +137,12 @@ public class ObjectManager {
 
     private boolean isPlayerInfrontOfCannon(Cannon c, Player player) {
         if (c.getObjType() == CANNON_LEFT) {
-            return c.getHitbox().x > player.getHitbox().x;
+            if (c.getHitbox().x > player.getHitbox().x)
+                return true;
 
-        } else return c.getHitbox().x < player.getHitbox().x;
+        } else if (c.getHitbox().x < player.getHitbox().x)
+            return true;
+        return false;
     }
 
     private void updateCannons(int[][] lvlData, Player player) {

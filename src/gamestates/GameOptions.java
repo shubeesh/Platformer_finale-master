@@ -1,21 +1,22 @@
 package gamestates;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
 import main.Game;
 import ui.AudioOptions;
 import ui.PauseButton;
 import ui.UrmButton;
 import utilz.Constants;
 import utilz.LoadSave;
-import static utilz.Constants.UI.URMButtons.*;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+import static utilz.Constants.UI.URMButtons.URM_SIZE;
 
 public class GameOptions extends State implements Statemethods {
 
-    private final AudioOptions audioOptions;
+    private AudioOptions audioOptions;
     private BufferedImage backgroundImg, optionsBackgroundImg;
     private int bgX, bgY, bgW, bgH;
     private UrmButton menuB;
@@ -38,7 +39,6 @@ public class GameOptions extends State implements Statemethods {
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
         optionsBackgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OPTIONS_MENU);
 
-        assert optionsBackgroundImg != null;
         bgW = (int) (optionsBackgroundImg.getWidth() * Constants.Game.SCALE);
         bgH = (int) (optionsBackgroundImg.getHeight() * Constants.Game.SCALE);
         bgX = Constants.Game.GAME_WIDTH / 2 - bgW / 2;
@@ -107,10 +107,14 @@ public class GameOptions extends State implements Statemethods {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+
     }
 
     private boolean isIn(MouseEvent e, PauseButton b) {

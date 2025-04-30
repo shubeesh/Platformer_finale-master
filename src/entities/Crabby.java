@@ -1,15 +1,11 @@
 package entities;
 
-import static utilz.Constants.EnemyConstants.*;
+import utilz.Constants;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.Directions.*;
-
-import main.Game;
-import utilz.Constants;
+import static utilz.Constants.Directions.RIGHT;
+import static utilz.Constants.EnemyConstants.*;
 
 public class Crabby extends Enemy {
 

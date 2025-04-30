@@ -17,8 +17,7 @@ public class HelpMethods {
         if (!IsSolid(x, y, lvlData))
             if (!IsSolid(x + width, y + height, lvlData))
                 if (!IsSolid(x + width, y, lvlData))
-                    if (!IsSolid(x, y + height, lvlData))
-                        return true;
+                    return !IsSolid(x, y + height, lvlData);
         return false;
     }
 
@@ -42,9 +41,7 @@ public class HelpMethods {
     public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
         int value = lvlData[yTile][xTile];
 
-        if (value >= 48 || value < 0 || value != 11)
-            return true;
-        return false;
+        return value != 11;
     }
 
     public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed) {
@@ -155,7 +152,7 @@ public class HelpMethods {
                 if (value == 100)
                     return new Point(i * Constants.Game.TILES_SIZE, j * Constants.Game.TILES_SIZE);
             }
-        return new Point(1 * Constants.Game.TILES_SIZE, 1 * Constants.Game.TILES_SIZE);
+        return new Point(Constants.Game.TILES_SIZE, Constants.Game.TILES_SIZE);
     }
 
     public static ArrayList<Potion> GetPotions(BufferedImage img) {

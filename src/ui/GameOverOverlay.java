@@ -1,22 +1,20 @@
 package ui;
 
-import static utilz.Constants.UI.URMButtons.URM_SIZE;
+import gamestates.Gamestate;
+import gamestates.Playing;
+import utilz.Constants;
+import utilz.LoadSave;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import gamestates.Gamestate;
-import gamestates.Playing;
-import main.Game;
-import utilz.Constants;
-import utilz.LoadSave;
+import static utilz.Constants.UI.URMButtons.URM_SIZE;
 
 public class GameOverOverlay {
 
-	private final Playing playing;
+	private Playing playing;
 	private BufferedImage img;
 	private int imgX, imgY, imgW, imgH;
 	private UrmButton menu, play;

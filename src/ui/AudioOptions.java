@@ -1,14 +1,14 @@
 package ui;
 
+import main.Game;
+import utilz.Constants;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
 import static utilz.Constants.UI.PauseButtons.SOUND_SIZE;
 import static utilz.Constants.UI.VolumeButtons.SLIDER_WIDTH;
 import static utilz.Constants.UI.VolumeButtons.VOLUME_HEIGHT;
-
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-
-import main.Game;
-import utilz.Constants;
 
 public class AudioOptions {
 
@@ -75,13 +75,13 @@ public class AudioOptions {
 	public void mouseReleased(MouseEvent e) {
 		if (isIn(e, musicButton)) {
 			if (musicButton.isMousePressed()) {
-				musicButton.setMuted(musicButton.isMuted());
+				musicButton.setMuted(!musicButton.isMuted());
 				game.getAudioPlayer().toggleSongMute();
 			}
 
 		} else if (isIn(e, sfxButton)) {
 			if (sfxButton.isMousePressed()) {
-				sfxButton.setMuted(sfxButton.isMuted());
+				sfxButton.setMuted(!sfxButton.isMuted());
 				game.getAudioPlayer().toggleEffectMute();
 			}
 		}

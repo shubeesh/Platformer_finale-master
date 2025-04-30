@@ -1,14 +1,14 @@
 package gamestates;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
 import main.Game;
 import ui.MenuButton;
 import utilz.Constants;
 import utilz.LoadSave;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class Menu extends State implements Statemethods {
 
@@ -56,6 +56,8 @@ public class Menu extends State implements Statemethods {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -86,6 +88,7 @@ public class Menu extends State implements Statemethods {
 	private void resetButtons() {
 		for (MenuButton mb : buttons)
 			mb.resetBools();
+
 	}
 
 	@Override
@@ -103,10 +106,13 @@ public class Menu extends State implements Statemethods {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

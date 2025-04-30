@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 
 public class LoadSave {
 
@@ -37,13 +38,13 @@ public class LoadSave {
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
         try {
-            img = ImageIO.read(is);
+            img = ImageIO.read(Objects.requireNonNull(is));
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                is.close();
+                Objects.requireNonNull(is).close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

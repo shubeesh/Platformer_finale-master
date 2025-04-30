@@ -1,24 +1,22 @@
 package ui;
 
-import java.awt.Graphics;
+import gamestates.Gamestate;
+import gamestates.Playing;
+import utilz.Constants;
+import utilz.LoadSave;
+
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import gamestates.Gamestate;
-import gamestates.Playing;
-import main.Game;
-import utilz.Constants;
-import utilz.LoadSave;
-import static utilz.Constants.UI.PauseButtons.*;
-import static utilz.Constants.UI.URMButtons.*;
-import static utilz.Constants.UI.VolumeButtons.*;
+import static utilz.Constants.UI.URMButtons.URM_SIZE;
 
 public class PauseOverlay {
 
-	private final Playing playing;
+	private Playing playing;
 	private BufferedImage backgroundImg;
 	private int bgX, bgY, bgW, bgH;
-	private final AudioOptions audioOptions;
+	private AudioOptions audioOptions;
 	private UrmButton menuB, replayB, unpauseB;
 
 	public PauseOverlay(Playing playing) {

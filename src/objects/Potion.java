@@ -5,8 +5,7 @@ import utilz.Constants;
 public class Potion extends GameObject {
 
     private float hoverOffset;
-    private final int maxHoverOffset;
-    private int hoverDir = 1;
+    private int maxHoverOffset, hoverDir = 1;
 
     public Potion(int x, int y, int objType) {
         super(x, y, objType);
