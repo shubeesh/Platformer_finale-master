@@ -1,11 +1,13 @@
 package objects;
 
+import main.Game;
 import utilz.Constants;
 
 public class Potion extends GameObject {
 
     private float hoverOffset;
-    private int maxHoverOffset, hoverDir = 1;
+    private final int maxHoverOffset;
+    private int hoverDir = 1;
 
     public Potion(int x, int y, int objType) {
         super(x, y, objType);

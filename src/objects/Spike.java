@@ -1,5 +1,6 @@
 package objects;
 
+import main.Game;
 import utilz.Constants;
 
 public class Spike extends GameObject{

@@ -1,19 +1,18 @@
 package entities;
 
-import gamestates.Playing;
-import levels.Level;
-import utilz.LoadSave;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import gamestates.Playing;
+import levels.Level;
+import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
 
 public class EnemyManager {
 
-	private Playing playing;
+	private final Playing playing;
 	private BufferedImage[][] crabbyArr;
 	private ArrayList<Crabby> crabbies = new ArrayList<>();
 

@@ -1,10 +1,9 @@
 package ui;
 
-import utilz.LoadSave;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import utilz.LoadSave;
 import static utilz.Constants.UI.VolumeButtons.*;
 
 public class VolumeButton extends PauseButton {
@@ -13,7 +12,9 @@ public class VolumeButton extends PauseButton {
 	private BufferedImage slider;
 	private int index = 0;
 	private boolean mouseOver, mousePressed;
-	private int buttonX, minX, maxX;
+	private int buttonX;
+    private final int minX;
+    private final int maxX;
 	private float floatValue = 0f;
 
 	public VolumeButton(int x, int y, int width, int height) {
@@ -56,10 +57,7 @@ public class VolumeButton extends PauseButton {
 	public void changeX(int x) {
 		if (x < minX)
 			buttonX = minX;
-		else if (x > maxX)
-			buttonX = maxX;
-		else
-			buttonX = x;
+		else buttonX = Math.min(x, maxX);
 		updateFloatValue();
 		bounds.x = buttonX - VOLUME_WIDTH / 2;
 

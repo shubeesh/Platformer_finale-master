@@ -1,8 +1,9 @@
 package objects;
 
-import utilz.Constants;
+import static utilz.Constants.ObjectConstants.*;
 
-import static utilz.Constants.ObjectConstants.BOX;
+import main.Game;
+import utilz.Constants;
 
 public class GameContainer extends GameObject {
 
@@ -25,7 +26,7 @@ public class GameContainer extends GameObject {
         }
 
         hitbox.y += yDrawOffset + (int) (Constants.Game.SCALE * 2);
-        hitbox.x += xDrawOffset / 2;
+        hitbox.x += (float) xDrawOffset / 2;
     }
 
     public void update() {

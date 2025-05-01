@@ -1,5 +1,13 @@
 package gamestates;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
@@ -10,14 +18,6 @@ import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
 import utilz.Constants;
 import utilz.LoadSave;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Random;
-
 import static utilz.Constants.Environment.*;
 
 public class Playing extends State implements Statemethods {
@@ -31,13 +31,12 @@ public class Playing extends State implements Statemethods {
     private boolean paused = false;
 
     private int xLvlOffset;
-    private int leftBorder = (int) (0.2 * Constants.Game.GAME_WIDTH);
-    private int rightBorder = (int) (0.8 * Constants.Game.GAME_WIDTH);
     private int maxLvlOffsetX;
 
-    private BufferedImage backgroundImg, bigCloud, smallCloud;
-    private int[] smallCloudsPos;
-    private Random rnd = new Random();
+    private final BufferedImage backgroundImg;
+    private final BufferedImage bigCloud;
+    private final BufferedImage smallCloud;
+    private final int[] smallCloudsPos;
 
     private boolean gameOver;
     private boolean lvlCompleted;
@@ -51,6 +50,7 @@ public class Playing extends State implements Statemethods {
         bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
         smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
         smallCloudsPos = new int[8];
+        Random rnd = new Random();
         for (int i = 0; i < smallCloudsPos.length; i++)
             smallCloudsPos[i] = (int) (90 * Constants.Game.SCALE) + rnd.nextInt((int) (100 * Constants.Game.SCALE));
 
@@ -111,6 +111,8 @@ public class Playing extends State implements Statemethods {
         int playerX = (int) player.getHitbox().x;
         int diff = playerX - xLvlOffset;
 
+        int rightBorder = (int) (0.8 * Constants.Game.GAME_WIDTH);
+        int leftBorder = (int) (0.2 * Constants.Game.GAME_WIDTH);
         if (diff > rightBorder)
             xLvlOffset += diff - rightBorder;
         else if (diff < leftBorder)

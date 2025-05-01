@@ -1,13 +1,13 @@
 package utilz;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 public class LoadSave {
 
@@ -38,13 +38,13 @@ public class LoadSave {
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
         try {
-            img = ImageIO.read(Objects.requireNonNull(is));
+            img = ImageIO.read(is);
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                Objects.requireNonNull(is).close();
+                is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

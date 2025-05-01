@@ -1,18 +1,19 @@
 package entities;
 
+import static utilz.Constants.PlayerConstants.*;
+import static utilz.HelpMethods.*;
+import static utilz.Constants.*;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
 import audio.AudioPlayer;
 import gamestates.Playing;
 import utilz.Constants;
 import utilz.LoadSave;
-
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
-import static utilz.Constants.ANI_SPEED;
-import static utilz.Constants.GRAVITY;
-import static utilz.Constants.PlayerConstants.*;
-import static utilz.HelpMethods.*;
 
 public class Player extends Entity {
 
@@ -20,46 +21,28 @@ public class Player extends Entity {
     private boolean moving = false, attacking = false;
     private boolean left, right, jump;
     private int[][] lvlData;
-    private float xDrawOffset = 21 * Constants.Game.SCALE;
-    private float yDrawOffset = 4 * Constants.Game.SCALE;
-
-    // Jumping / Gravity
-    private float jumpSpeed = -2.25f * Constants.Game.SCALE;
-    private float fallSpeedAfterCollision = 0.5f * Constants.Game.SCALE;
 
     // StatusBarUI
     private BufferedImage statusBarImg;
 
-    private int statusBarWidth = (int) (192 * Constants.Game.SCALE);
-    private int statusBarHeight = (int) (58 * Constants.Game.SCALE);
-    private int statusBarX = (int) (10 * Constants.Game.SCALE);
-    private int statusBarY = (int) (10 * Constants.Game.SCALE);
-
-    private int healthBarWidth = (int) (150 * Constants.Game.SCALE);
-    private int healthBarHeight = (int) (4 * Constants.Game.SCALE);
-    private int healthBarXStart = (int) (34 * Constants.Game.SCALE);
-    private int healthBarYStart = (int) (14 * Constants.Game.SCALE);
+    private final int healthBarWidth = (int) (150 * Constants.Game.SCALE);
     private int healthWidth = healthBarWidth;
 
-    private int powerBarWidth = (int) (104 * Constants.Game.SCALE);
-    private int powerBarHeight = (int) (2 * Constants.Game.SCALE);
-    private int powerBarXStart = (int) (44 * Constants.Game.SCALE);
-    private int powerBarYStart = (int) (34 * Constants.Game.SCALE);
+    private final int powerBarWidth = (int) (104 * Constants.Game.SCALE);
     private int powerWidth = powerBarWidth;
-    private int powerMaxValue = 200;
+    private final int powerMaxValue = 200;
     private int powerValue = powerMaxValue;
 
     private int flipX = 0;
     private int flipW = 1;
 
     private boolean attackChecked;
-    private Playing playing;
+    private final Playing playing;
 
     private int tileY = 0;
 
     private boolean powerAttackActive;
     private int powerAttackTick;
-    private int powerGrowSpeed = 15;
     private int powerGrowTick;
 
     public Player(float x, float y, int width, int height, Playing playing) {
@@ -68,7 +51,7 @@ public class Player extends Entity {
         this.state = IDLE;
         this.maxHealth = 100;
         this.currentHealth = 35;
-        this.walkSpeed = Constants.Game.SCALE * 1.0f;
+        this.walkSpeed = Constants.Game.SCALE;
         loadAnimations();
         initHitbox(20, 27);
         initAttackBox();
@@ -141,10 +124,8 @@ public class Player extends Entity {
     private void checkAttack() {
         if (attackChecked || aniIndex != 1)
             return;
-        attackChecked = true;
 
-        if (powerAttackActive)
-            attackChecked = false;
+        attackChecked = !powerAttackActive;
 
         playing.checkEnemyHit(attackBox);
         playing.checkObjectHit(attackBox);
@@ -175,6 +156,7 @@ public class Player extends Entity {
         powerWidth = (int) ((powerValue / (float) powerMaxValue) * powerBarWidth);
 
         powerGrowTick++;
+        int powerGrowSpeed = 15;
         if (powerGrowTick >= powerGrowSpeed) {
             powerGrowTick = 0;
             changePower(1);
@@ -182,6 +164,8 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g, int lvlOffset) {
+        float xDrawOffset = 21 * Constants.Game.SCALE;
+        float yDrawOffset = 4 * Constants.Game.SCALE;
         g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
 //		drawHitbox(g, lvlOffset);
 //		drawAttackBox(g, lvlOffset);
@@ -190,14 +174,24 @@ public class Player extends Entity {
 
     private void drawUI(Graphics g) {
         // Background ui
+        int statusBarWidth = (int) (192 * Constants.Game.SCALE);
+        int statusBarHeight = (int) (58 * Constants.Game.SCALE);
+        int statusBarX = (int) (10 * Constants.Game.SCALE);
+        int statusBarY = (int) (10 * Constants.Game.SCALE);
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
 
         // Health bar
         g.setColor(Color.red);
+        int healthBarYStart = (int) (14 * Constants.Game.SCALE);
+        int healthBarHeight = (int) (4 * Constants.Game.SCALE);
+        int healthBarXStart = (int) (34 * Constants.Game.SCALE);
         g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
 
         // Power Bar
         g.setColor(Color.yellow);
+        int powerBarYStart = (int) (34 * Constants.Game.SCALE);
+        int powerBarXStart = (int) (44 * Constants.Game.SCALE);
+        int powerBarHeight = (int) (2 * Constants.Game.SCALE);
         g.fillRect(powerBarXStart + statusBarX, powerBarYStart + statusBarY, powerWidth, powerBarHeight);
     }
 
@@ -289,7 +283,7 @@ public class Player extends Entity {
         }
 
         if (!inAir)
-            if (!IsEntityOnFloor(hitbox, lvlData))
+            if (IsEntityOnFloor(hitbox, lvlData))
                 inAir = true;
 
         if (inAir && !powerAttackActive) {
@@ -299,6 +293,7 @@ public class Player extends Entity {
                 updateXPos(xSpeed);
             } else {
                 hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+                float fallSpeedAfterCollision = 0.5f * Constants.Game.SCALE;
                 if (airSpeed > 0)
                     resetInAir();
                 else
@@ -316,7 +311,8 @@ public class Player extends Entity {
             return;
         playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
         inAir = true;
-        airSpeed = jumpSpeed;
+        // Jumping / Gravity
+        airSpeed = -2.25f * Constants.Game.SCALE;
     }
 
     private void resetInAir() {
@@ -370,7 +366,7 @@ public class Player extends Entity {
 
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
-        if (!IsEntityOnFloor(hitbox, lvlData))
+        if (IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
 
@@ -416,7 +412,7 @@ public class Player extends Entity {
         hitbox.y = y;
         resetAttackBox();
 
-        if (!IsEntityOnFloor(hitbox, lvlData))
+        if (IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
 

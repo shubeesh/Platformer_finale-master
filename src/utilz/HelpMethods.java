@@ -1,15 +1,20 @@
 package utilz;
 
-import entities.Crabby;
-import objects.*;
+import static utilz.Constants.EnemyConstants.CRABBY;
+import static utilz.Constants.ObjectConstants.*;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static utilz.Constants.EnemyConstants.CRABBY;
-import static utilz.Constants.ObjectConstants.*;
+import entities.Crabby;
+import objects.Cannon;
+import objects.GameContainer;
+import objects.Potion;
+import objects.Projectile;
+import objects.Spike;
 
 public class HelpMethods {
 
@@ -71,9 +76,8 @@ public class HelpMethods {
 
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
         if (!IsSolid(hitbox.x, hitbox.y + hitbox.height + 1, lvlData))
-            if (!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData))
-                return false;
-        return true;
+            return !IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData);
+        return false;
     }
 
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {

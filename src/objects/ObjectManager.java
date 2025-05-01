@@ -18,7 +18,7 @@ import static utilz.Constants.Projectiles.*;
 
 public class ObjectManager {
 
-    private Playing playing;
+    private final Playing playing;
     private BufferedImage[][] potionImgs, containerImgs;
     private BufferedImage[] cannonImgs;
     private BufferedImage spikeImg, cannonBallImg;
@@ -26,7 +26,7 @@ public class ObjectManager {
     private ArrayList<GameContainer> containers;
     private ArrayList<Spike> spikes;
     private ArrayList<Cannon> cannons;
-    private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private final ArrayList<Projectile> projectiles = new ArrayList<>();
 
     public ObjectManager(Playing playing) {
         this.playing = playing;
@@ -137,12 +137,9 @@ public class ObjectManager {
 
     private boolean isPlayerInfrontOfCannon(Cannon c, Player player) {
         if (c.getObjType() == CANNON_LEFT) {
-            if (c.getHitbox().x > player.getHitbox().x)
-                return true;
+            return c.getHitbox().x > player.getHitbox().x;
 
-        } else if (c.getHitbox().x < player.getHitbox().x)
-            return true;
-        return false;
+        } else return c.getHitbox().x < player.getHitbox().x;
     }
 
     private void updateCannons(int[][] lvlData, Player player) {

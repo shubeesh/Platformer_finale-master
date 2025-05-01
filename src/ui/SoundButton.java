@@ -1,11 +1,10 @@
 package ui;
 
-import utilz.LoadSave;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.UI.PauseButtons.SOUND_SIZE_DEFAULT;
+import utilz.LoadSave;
+import static utilz.Constants.UI.PauseButtons.*;
 
 public class SoundButton extends PauseButton {
 
@@ -68,7 +67,7 @@ public class SoundButton extends PauseButton {
 	}
 
 	public boolean isMuted() {
-		return muted;
+		return !muted;
 	}
 
 	public void setMuted(boolean muted) {

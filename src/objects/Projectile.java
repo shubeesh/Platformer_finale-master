@@ -1,14 +1,15 @@
 package objects;
 
-import utilz.Constants;
-
 import java.awt.geom.Rectangle2D;
+
+import main.Game;
+import utilz.Constants;
 
 import static utilz.Constants.Projectiles.*;
 
 public class Projectile {
-    private Rectangle2D.Float hitbox;
-    private int dir;
+    private final Rectangle2D.Float hitbox;
+    private final int dir;
     private boolean active = true;
 
     public Projectile(int x, int y, int dir) {

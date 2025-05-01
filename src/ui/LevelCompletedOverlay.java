@@ -1,19 +1,20 @@
 package ui;
 
-import gamestates.Gamestate;
-import gamestates.Playing;
-import utilz.Constants;
-import utilz.LoadSave;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.UI.URMButtons.URM_SIZE;
+import gamestates.Gamestate;
+import gamestates.Playing;
+import main.Game;
+import utilz.Constants;
+import utilz.LoadSave;
+import static utilz.Constants.UI.URMButtons.*;
 
 public class LevelCompletedOverlay {
 
-	private Playing playing;
+	private final Playing playing;
 	private UrmButton menu, next;
 	private BufferedImage img;
 	private int bgX, bgY, bgW, bgH;
